@@ -1,19 +1,19 @@
 import pandas as pd
 import numpy as np
 
-#This is the file I downloaded for 2017 data
+#This is the file I downloaded for the complete data
 #downloaded from http://popstats.unhcr.org/en/time_series
-#selected 2017 data, all countries to all countries, only refugees
+#selected all years data, all countries to all countries, only refugees
 #export "current view, as .csv file"
 #Had to manually open in excel, and remove the header and top rows
-pop_file = "pop_stats_2017.csv"
+pop_file = "pop_stats_full.csv"
 
 #create pandas data frame from file
 full_data_frame = pd.read_csv(pop_file)
 
 #remove country of residence, and situation type (they are all refugees, left out asylum seekers, internally displaced people, etc.)
 #value means population size
-short_data_frame = full_data_frame[['Origin', 'Value']]
+short_data_frame = full_data_frame[['Year', 'Origin', 'Value']]
 
 #values marked with a '*' mean population size of 1-4
 #For now I think we can drop these values, later we might want to use them
@@ -24,7 +24,7 @@ short_data_frame['Value'] = pd.to_numeric(short_data_frame['Value'])
 
 #There are a lot of duplicates, this is because we dropped the new country of residence
 #I dont know why it converts from dataframe to series here, but I use to_frame to keep it as a datframe (more than 1 col)
-fixed_data_frame = short_data_frame.groupby('Origin')['Value'].sum().to_frame()
+fixed_data_frame = short_data_frame.groupby(['Year', 'Origin'])['Value'].sum().to_frame()
 
 #It gives some stuff like 7 refugees from Canada, and I don't know how to interpret that, 
 #so I think it is reasonable to pick a cut off. For now I chose 100
@@ -47,4 +47,4 @@ final_data_frame = final_data_frame.rename(d)
 #print(final_data_frame[75:90])
 
 #return this to csv file, which can be opened by google sheets
-final_data_frame.to_csv('cleaned_data_2017.csv')
+final_data_frame.to_csv('refugee_origin_pops_by_year.csv')
