@@ -31,11 +31,20 @@ fixed_data_frame = short_data_frame.groupby('Origin')['Value'].sum().to_frame()
 #maybe it would be better to use 500, or 1000, or even higher, once we see the rest of our data
 final_data_frame = fixed_data_frame[fixed_data_frame.Value >= 1000]
 
+#Still need to adjust some values in order to work with google sheets. values that are off: 
+	#Tibetan: ?, Various/Unknown: ?, 
+	#Dem. People's Rep. of Korea: North Korea,
+	#Syrian Arab Rep. : Syria,
+	#Stateless : ?
+d = {r"Dem. People's Rep. of Korea": "North Korea", r"Syrian Arab Rep." : 'Syria'}
+final_data_frame = final_data_frame.rename(d)
+
 #uncomment to see info about this dataframe (size, shape, etc)
 #print(final_data_frame.info())
 
-#uncomment to see what the first 10 values now look like
-#print(final_data_frame.head(10))
+#uncomment to see what the indexed rows look like
+#print(final_data_frame[11:25])
+#print(final_data_frame[75:90])
 
 #return this to csv file, which can be opened by google sheets
 final_data_frame.to_csv('cleaned_data_2017.csv')
