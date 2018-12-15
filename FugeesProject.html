@@ -138,32 +138,31 @@
 	</head>
 
 	<body>
-
-		<!-- Header	 -->
-		<div class="row">
-			<div class="col">
-				<h3>Refugee Population Statistics From 1960 - 2017</h3>
-			</div>
-		</div>
-
-		<!-- Year Label	 -->
-		<div class="row mt-5">
-			<div class="col-lg-6 col-lg-offset-3 text-center"">
-				<h1 id=yearLabel></h1>
-			</div>
-		</div>
-
-		<!-- Map Content -->
 		<div class="container-fluid">
+			<!-- Header	 -->
+			<div class="row">
+				<div class="col">
+					<h3>Refugee Population Statistics From 1960 - 2017</h3>
+				</div>
+			</div>
+
+			<!-- Year Label	 -->
+			<div class="row mt-5">
+				<div class="col-lg-6 col-lg-offset-3 text-center"">
+					<h1 id=yearLabel></h1>
+				</div>
+			</div>
+
+			<!-- Map Content -->
 			<div class="row mt-5 vertical-align">
 				<!-- Left hand side list of countries and populations -->
-				<div class="col-lg-2 col-md-2" >
+				<div class="col-lg-2 col-md-2">
 					<h4>Country of Origin: Fleeing Population</h4>
 					<div class="pre-scrollable">
 						<ul id="countryList"></ul>
 					</div>
 				</div>
-				<div class="col-lg-1 col-md-1" style="width: 4%;" >
+				<div class="col-lg-1 col-md-1" style="width: 4%;">
 					<button type="button" class="btn btn-warning btn-arrow-left" onclick="backOne()"><span class="glyphicon glyphicon-backward"></span></button>
 				</div>
 				<div class="col-lg-6 col-md-6 text-center">
@@ -173,19 +172,18 @@
 					<button type="button" class="btn btn-warning btn-arrow-right" onclick="fwdOne()"><span class="glyphicon glyphicon-forward"></span></button>
 				</div>
 				<!-- This is where the summaries get filled into -->
-				<div class="col-lg-2 col-md-2">
+				<div class="col-lg-3 col-md-3">
 					<p id="summary"></p>
 				</div>
 			</div>
-		</div>
 
-		<!-- Year selector -->
-		<div class="row mt-5 pt-5">
-			<div class="col text-center">
-				<input id="yearSlider" type="text" data-provide="slider" data-slider-id='yearSlider' data-slider-min="1960" data-slider-max="2017" data-slider-step="1" data-slider-value="1960" onchange="drawMap(this.value)">
-				
+			<!-- Year selector -->
+			<div class="row mt-5 pt-5">
+				<div class="col text-center">
+					<input id="yearSlider" type="text" data-provide="slider" data-slider-id='yearSlider' data-slider-min="1960" data-slider-max="2017" data-slider-step="1" data-slider-value="1960" onchange="drawMap(this.value)">
+					
+				</div>
 			</div>
 		</div>
-
 	</body>
 </html>
