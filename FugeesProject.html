@@ -1,24 +1,69 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<!-- Including Bootstrap 4 -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<!-- Including Bootstrap 3 -->
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.7.2/css/bootstrap-slider.min.css">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.7.2/bootstrap-slider.min.js"></script>
+	
 
 	<!-- CSS for media queries -->
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<title>Fugees Project</title>
+
+	<!-- Maps Section -->
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <!-- IMPORTANT! 
+      This js file listed below is called key.js. It is included in the .gitignore file, so it is not added to the github repo. 
+      In order to get this to work, you will need to sign up for a free google maps api key 
+      See website: https://developers.google.com/maps/documentation/javascript/get-api-key#step-1-get-an-api-key 
+
+      Click 'Get started' you have to enable billing, but it is free so long as you dont do more than like 150,000 requests this month
+
+      You can set max requests, and not be billed no matter what, but this is done for security reasons, explained in 290, 
+      basically so none of us can post this on reddit and accidentally give a teammate a surprise million views and a $50 charge
+
+      After you have your api key, create a file called key.js in the same folder as this html doc, add a single line to it. It will look like: 
+      const APIkey = '(copy and paste your api key here)'
+      Then, this will work on your home computer -->
+    <script type="text/javascript" src="key.js"></script>
+    <script type="text/javascript" src="Data/pop_data.js"></script> <!-- Object is called refugeeData -->
+    <script type="text/javascript">
+		google.charts.load('current', {
+		    'packages':['geochart'],
+		    // Note: you will need to get a mapsApiKey for your project.
+		    // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+		    'mapsApiKey': APIkey
+		});
+		
+		google.charts.setOnLoadCallback(drawRegionsMap);
+
+		function drawRegionsMap() {
+		    var countryArray = refugeeData[0];
+		    var data = google.visualization.arrayToDataTable(countryArray);
+
+		    var options = {};
+
+		    var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+
+		    chart.draw(data, options);
+		}
+
+      	var slider = new Slider('#yearSlider', {});
+    </script>   
 </head>
 <body>
-	
+
+
 	<!-- Header	 -->
 	<div class="row">
 		<div class="col"></div>
 
 		<div class="col">
-			<h1>Refugee Population Statistics From 1950 - 2017</h1>
+			<h1>Refugee Population Statistics From 1960 - 2017</h1>
 		</div>
 
 		<div class="col"></div>
@@ -29,7 +74,7 @@
 		<div class="col"></div>
 
 		<div class="col map-responsive">
-			<iframe width="1038" height="677" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTFbXcEV1jZYcDM-reZ-i3NcBDbeltPiYPpkf_l2bR_ImxJVbYWNelLvGcX_SxInSi8b_u0FJeEpqo2/pubchart?oid=1396731927&amp;format=interactive"></iframe>
+			    <div id="regions_div" style="width: 900px; height: 500px;"></div>
 		</div>
 
 		<div class="col"></div>
@@ -38,43 +83,9 @@
 	<!-- Year selector -->
 	<div class="row">
 		<div class="col"></div>	
-
-		<div class="dropdown">
-		  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			-Select year-	
-		  </button>
-		  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-		    <a class="dropdown-item" href="#">2017</a>
-		    <a class="dropdown-item" href="#">2016</a>
-		    <a class="dropdown-item" href="#">2015</a>
-		    <a class="dropdown-item" href="#">2014</a>
-		    <a class="dropdown-item" href="#">2013</a>
-		    <a class="dropdown-item" href="#">2012</a>
-		    <a class="dropdown-item" href="#">2011</a>
-		    <a class="dropdown-item" href="#">2010</a>
-		    <a class="dropdown-item" href="#">2009</a>
-		    <a class="dropdown-item" href="#">2008</a>
-		    <a class="dropdown-item" href="#">2007</a>
-		    <a class="dropdown-item" href="#">2006</a>
-		    <a class="dropdown-item" href="#">2005</a>
-		    <a class="dropdown-item" href="#">2004</a>
-		    <a class="dropdown-item" href="#">2003</a>
-		    <a class="dropdown-item" href="#">2002</a>
-		    <a class="dropdown-item" href="#">2001</a>
-		    <a class="dropdown-item" href="#">2000</a>
-		    <a class="dropdown-item" href="#">1999</a>
-		    <a class="dropdown-item" href="#">1998</a>
-		    <a class="dropdown-item" href="#">1997</a>
-		    <a class="dropdown-item" href="#">1996</a>
-		    <a class="dropdown-item" href="#">1995</a>
-		    <a class="dropdown-item" href="#">1994</a>
-		    <a class="dropdown-item" href="#">1993</a>
-		    <a class="dropdown-item" href="#">1992</a>
-		    <a class="dropdown-item" href="#">1991</a>
-		    <a class="dropdown-item" href="#">1990</a>
-		  </div>
-		</div>
-
+		<div class="col">
+			<input id="yearSlider" type="text" data-provide="slider" data-slider-id='yearSlider' data-slider-min="1960" data-slider-max="2017" data-slider-step="1" data-slider-value="1970"/>
+		</div>	
 		<div class="col"></div>	
 
 	</div>
