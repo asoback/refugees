@@ -48,6 +48,10 @@
 	    -->
 	    <script type="text/javascript" src="Data/pop_data.js"></script> 
 
+	    <!-- Contains the history summary array 
+	    	The array is a constant called summaryArray -->
+	    <script type="text/javascript" src="summaries.js"></script>
+
 	    <!-- Want to work on the chart styles, color, etc.? Here are the docs;
 	    	https://developers.google.com/chart/interactive/docs/gallery/geochart#top_of_page -->
 	    <script type="text/javascript">
@@ -104,6 +108,11 @@
 			    //Finally, redraw this map
 			    var chart = new google.visualization.GeoChart(document.getElementById('map_div'));
 			    chart.draw(data, options);
+
+			    //Add the summary, See line 167
+			    var summaryDiv = document.getElementById('summary');
+			    summaryDiv.textContent = summaryArray[year];
+
 			}
 
 			function backOne(){
@@ -155,7 +164,8 @@
 			<div class="col-lg-6 col-md-6 text-center">
 				    <div id="map_div"></div>
 			</div>
-			<div class="col-lg-3 col-md-3"></div>
+			<!-- This is where the summaries get filled into -->
+			<div class="col-lg-3 col-md-3" id="summary"></div>
 		</div>
 
 		<!-- Year selector -->
