@@ -1,3 +1,9 @@
+<!-- 
+	This is the main file, right now it has basically everything it needs, though we might want to move some of the styling over to styles.css, and some of the JS into thier own files.
+	It relies on the information provided by key.js for your maps API
+	and also on Data/pop_data.js for the JS array of country, fleeing refugee population, year
+-->
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -9,7 +15,6 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.7.2/css/bootstrap-slider.min.css">
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.7.2/bootstrap-slider.min.js"></script>
 		
-
 		<!-- CSS for media queries -->
 		<link rel="stylesheet" type="text/css" href="style.css">
 		<title>Fugees Project</title>
@@ -29,23 +34,34 @@
 
 	      After you have your api key, create a file called key.js in the same folder as this html doc, add a single line to it. It will look like: 
 	      const APIkey = '(copy and paste your api key here)'
-	      Then, this will work on your home computer -->
+	      Then, this will work on your home computer 
+	    -->
 	    <script type="text/javascript" src="key.js"></script>
-	    <script type="text/javascript" src="Data/pop_data.js"></script> <!-- Object is called refugeeData -->
+
+	    <!-- Data for filling in the map.
+	    	IF you make changes to this data, be sure to look in csv2js.py
+	    	Which converts the spreadsheet data into something usable in this page
+	    	The Array object is called refugeeData 
+	    	refugeeData[0] is 1960 data, [1] is 1961, and so on.
+	    -->
+	    <script type="text/javascript" src="Data/pop_data.js"></script> 
 
 	    <!-- Want to work on the chart styles, color, etc.? Here are the docs;
 	    	https://developers.google.com/chart/interactive/docs/gallery/geochart#top_of_page -->
 	    <script type="text/javascript">
 			google.charts.load('current', {
 			    'packages':['geochart'],
-			    // Note: you will need to get a mapsApiKey for your project.
+			    // Note: to run locally, you need an API key, see above comment
 			    // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
 			    'mapsApiKey': APIkey
 			});
 			
-			google.charts.setOnLoadCallback(updateSlider);
+			//Load initial chart
+			google.charts.setOnLoadCallback(drawMap);
 
-			function updateSlider(val){
+			//Redraw map every time. Apparently no animations for google geocharts :(
+			//If called with no val default to 1960
+			function drawMap(val){
 				if (val == undefined){
 					year = 0;
 					document.getElementById('yearLabel').textContent = 1960;
@@ -56,6 +72,9 @@
 				}
 				
 				var countryArray = refugeeData[year];
+
+				//countryArray[0] has to be labels ['Country', 'Fleeing population']
+				//After that is country:pop pairs
 			    var data = google.visualization.arrayToDataTable(countryArray);
 
 			    //We might want to go with displayMode: 'markers' because some of these numbers are so big they overshadow others.
@@ -69,10 +88,12 @@
 			        legend: 'none'
 			    };
 
+			    //Finally, redraw this map
 			    var chart = new google.visualization.GeoChart(document.getElementById('map_div'));
 			    chart.draw(data, options);
 			}
 
+			// This just declares the slider for bootstrap, without it it just shows up as a text box
 	      	var slider = new Slider('#yearSlider', {});
 	    </script>   
 	</head>
@@ -104,8 +125,9 @@
 		<div class="row text-right mt-5 pt-5">
 			<div class="col-lg-6 col-lg-offset-3">
 				<label>Year Slide</label>
-				<input id="yearSlider" type="text" data-provide="slider" data-slider-id='yearSlider' data-slider-min="1960" data-slider-max="2017" data-slider-step="1" data-slider-value="1960" onchange="updateSlider(this.value)">
+				<input id="yearSlider" type="text" data-provide="slider" data-slider-id='yearSlider' data-slider-min="1960" data-slider-max="2017" data-slider-step="1" data-slider-value="1960" onchange="drawMap(this.value)">
 			</div>
 		</div>
+
 	</body>
 </html>
