@@ -123,7 +123,7 @@
 			}
 
 			// This just declares the slider for bootstrap, without it it just shows up as a text box
-			//Currently gives error on console, yet works. Not sure why
+			// Currently gives error on console, yet works. Not sure why, maybe just because this script loads before the DOM element.
 	      	var slider = new Slider('#yearSlider', {});
 	    </script>   
 	</head>
@@ -148,7 +148,7 @@
 		<div class="row mt-5">
 			<!-- Left hand side list of countries and populations -->
 			<div class="col-lg-3 col-md-3" >
-				<h3>Country of Origin: Fleeing Population</h3>
+				<h4>Country of Origin: Fleeing Population</h4>
 				<ol id="countryList">
 				</ol>
 			</div>
