@@ -36,3 +36,8 @@ li{
 p{
   color: #cdd6d8;
 }
+
+.vertical-align {
+    display: flex;
+    align-items: center;
+}

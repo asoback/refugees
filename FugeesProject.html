@@ -154,28 +154,35 @@
 		</div>
 
 		<!-- Map Content -->
-		<div class="row mt-5">
-			<!-- Left hand side list of countries and populations -->
-			<div class="col-lg-3 col-md-3" >
-				<h4>Country of Origin: Fleeing Population</h4>
-				<ol id="countryList">
-				</ol>
-			</div>
-			<div class="col-lg-6 col-md-6 text-center">
-				    <div id="map_div"></div>
-			</div>
-			<!-- This is where the summaries get filled into -->
-			<div class="col-lg-3 col-md-3">
-				<p id="summary"></p>
+		<div class="container-fluid">
+			<div class="row mt-5 vertical-align">
+				<!-- Left hand side list of countries and populations -->
+				<div class="col-lg-2 col-md-2" >
+					<h4>Country of Origin: Fleeing Population</h4>
+					<ol id="countryList">
+					</ol>
+				</div>
+				<div class="col-lg-1 col-md-1" style="width: 4%;" >
+					<button type="button" class="btn btn-warning btn-arrow-left" onclick="backOne()"><span class="glyphicon glyphicon-backward"></span></button>
+				</div>
+				<div class="col-lg-6 col-md-6 text-center">
+					    <div id="map_div"></div>   
+				</div>
+				<div class="col-lg-1 col-md-1" style="width: 4%;" >
+					<button type="button" class="btn btn-warning btn-arrow-right" onclick="fwdOne()"><span class="glyphicon glyphicon-forward"></span></button>
+				</div>
+				<!-- This is where the summaries get filled into -->
+				<div class="col-lg-2 col-md-2">
+					<p id="summary"></p>
+				</div>
 			</div>
 		</div>
 
 		<!-- Year selector -->
 		<div class="row mt-5 pt-5">
 			<div class="col text-center">
-				<button type="button" class="btn btn-warning btn-arrow-left" onclick="backOne()"><span class="glyphicon glyphicon-backward"></span></button>
 				<input id="yearSlider" type="text" data-provide="slider" data-slider-id='yearSlider' data-slider-min="1960" data-slider-max="2017" data-slider-step="1" data-slider-value="1960" onchange="drawMap(this.value)">
-				<button type="button" class="btn btn-warning btn-arrow-right" onclick="fwdOne()"><span class="glyphicon glyphicon-forward"></span></button>
+				
 			</div>
 		</div>
 
