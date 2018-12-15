@@ -16,6 +16,7 @@
       const APIkey = '(copy and paste your api key here)'
       Then, this will work on your home computer -->
     <script type="text/javascript" src="key.js"></script>
+    <script type="text/javascript" src="Data/pop_data.js"></script> <!-- Object is called refugeeData -->
     <script type="text/javascript">
       google.charts.load('current', {
         'packages':['geochart'],
@@ -26,15 +27,9 @@
       google.charts.setOnLoadCallback(drawRegionsMap);
 
       function drawRegionsMap() {
-        var data = google.visualization.arrayToDataTable([
-          ['Country', 'Popularity'],
-          ['Germany', 2000],
-          ['United States', 300],
-          ['Brazil', 400],
-          ['Canada', 500],
-          ['France', 600],
-          ['Russia', 100]
-        ]);
+        var countryArray = refugeeData[0];
+        console.log(countryArray);
+        var data = google.visualization.arrayToDataTable(countryArray);
 
         var options = {};
 
@@ -42,7 +37,7 @@
 
         chart.draw(data, options);
       }
-    </script>
+    </script>   
   </head>
   <body>
     <h1>Refugees</h1>

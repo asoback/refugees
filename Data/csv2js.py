@@ -20,10 +20,10 @@ countries = list(df['Origin'])
 #print(countries)
 country_count = len(countries)
 
-f.write('const refugeeData = [')
+f.write("const refugeeData = [")
 for column in df.columns[1:]:
-	f.write('[')
+	f.write("[['Country', 'Refugee Population'],")
 	for i in range(country_count):
-		f.write("['" + countries[i] + "', " + str(df[column][i]) + "],")
+		f.write('["' + countries[i] + '",' + str(df[column][i]) + "],")
 	f.write('],')
 f.write(']')
