@@ -33,7 +33,12 @@ final_data_frame = fixed_data_frame[fixed_data_frame.Value >= 1000]
 
 #Still need to adjust some values in order to work with google sheets. values that are off: 
 	#Tibetan: ?, Various/Unknown: ?, #Stateless : ?
-d = {r"Dem. People's Rep. of Korea": "North Korea", r"Syrian Arab Rep." : 'Syria'}
+d = {r"Dem. People's Rep. of Korea": "North Korea", 
+	r"Syrian Arab Rep." : 'Syria', 
+	r'Bolivia (Plurinational State of)': 'Bolivia', 
+	r'Iran (Islamic Rep. of)': 'Iran',
+	r'Serbia and Kosovo (S/RES/1244 (1999))': 'Serbia and Kosovo',
+	r'Venezuela (Bolivarian Republic of)': 'Venezuela'}
 final_data_frame = final_data_frame.rename(d)
 
 #Here I am going to make a new table with index being each country, and columns being year, and fill in the pops for each cell
