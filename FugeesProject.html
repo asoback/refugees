@@ -51,6 +51,7 @@
 		    var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
 
 		    chart.draw(data, options);
+		    document.getElementById('yearLabel').textContent = "1960";
 		}
 
 		function updateSlider(val){
@@ -61,7 +62,7 @@
 		    var options = {};
 
 		    var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
-
+		    document.getElementById('yearLabel').textContent = val;
 		    chart.draw(data, options);
 		}
 
@@ -73,34 +74,31 @@
 
 	<!-- Header	 -->
 	<div class="row">
-		<div class="col"></div>
-
 		<div class="col">
 			<h1>Refugee Population Statistics From 1960 - 2017</h1>
 		</div>
+	</div>
 
-		<div class="col"></div>
+	<!-- Year Label	 -->
+	<div class="row">
+		<div class="col-lg-6 col-lg-offset-3 text-center"">
+			<h3 id=yearLabel></h3>
+		</div>
 	</div>
 
 	<!-- Map Content -->
-	<div class="row">
-		<div class="col"></div>
-
-		<div class="col map-responsive">
+	<div class="row mt-5">
+		<div class="col-lg-6 col-lg-offset-3 text-center">
 			    <div id="regions_div" style="width: 900px; height: 500px;"></div>
 		</div>
-
-		<div class="col"></div>
 	</div>
 
 	<!-- Year selector -->
-	<div class="row">
-		<div class="col"></div>	
-		<div class="col">
-			<input id="yearSlider" type="text" data-provide="slider" data-slider-id='yearSlider' data-slider-min="1960" data-slider-max="2017" data-slider-step="1" data-slider-value="1970" onchange="updateSlider(this.value)">
-		</div>	
-		<div class="col"></div>	
-
+	<div class="row text-right mt-5">
+		<div class="col-lg-6 col-lg-offset-3">
+			<label>Year Slide</label>
+			<input id="yearSlider" type="text" data-provide="slider" data-slider-id='yearSlider' data-slider-min="1960" data-slider-max="2017" data-slider-step="1" data-slider-value="1960" onchange="updateSlider(this.value)">
+		</div>
 	</div>
 </body>
 </html>
