@@ -1,104 +1,111 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<!-- Including Bootstrap 3 -->
-	<!-- downgraded to use sliders. Internet told me to. https://stackoverflow.com/a/42486185 -->
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.7.2/css/bootstrap-slider.min.css">
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.7.2/bootstrap-slider.min.js"></script>
-	
-
-	<!-- CSS for media queries -->
-	<link rel="stylesheet" type="text/css" href="style.css">
-	<title>Fugees Project</title>
-
-	<!-- Maps Section -->
-	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
-    <!-- IMPORTANT! 
-      This js file listed below is called key.js. It is included in the .gitignore file, so it is not added to the github repo. 
-      In order to get this to work, you will need to sign up for a free google maps api key 
-      See website: https://developers.google.com/maps/documentation/javascript/get-api-key#step-1-get-an-api-key 
-
-      Click 'Get started' you have to enable billing, but it is free so long as you dont do more than like 150,000 requests this month
-
-      You can set max requests, and not be billed no matter what, but this is done for security reasons, explained in 290, 
-      basically so none of us can post this on reddit and accidentally give a teammate a surprise million views and a $50 charge
-
-      After you have your api key, create a file called key.js in the same folder as this html doc, add a single line to it. It will look like: 
-      const APIkey = '(copy and paste your api key here)'
-      Then, this will work on your home computer -->
-    <script type="text/javascript" src="key.js"></script>
-    <script type="text/javascript" src="Data/pop_data.js"></script> <!-- Object is called refugeeData -->
-    <script type="text/javascript">
-		google.charts.load('current', {
-		    'packages':['geochart'],
-		    // Note: you will need to get a mapsApiKey for your project.
-		    // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
-		    'mapsApiKey': APIkey
-		});
+	<head>
+		<!-- Including Bootstrap 3 -->
+		<!-- downgraded to use sliders. Internet told me to. https://stackoverflow.com/a/42486185 -->
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.7.2/css/bootstrap-slider.min.css">
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.7.2/bootstrap-slider.min.js"></script>
 		
-		google.charts.setOnLoadCallback(drawRegionsMap);
 
-		function drawRegionsMap() {
-		    var countryArray = refugeeData[0];
-		    var data = google.visualization.arrayToDataTable(countryArray);
+		<!-- CSS for media queries -->
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<title>Fugees Project</title>
 
-		    var options = {};
+		<!-- Maps Section -->
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-		    var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+	    <!-- IMPORTANT! 
+	      This js file listed below is called key.js. It is included in the .gitignore file, so it is not added to the github repo. 
+	      In order to get this to work, you will need to sign up for a free google maps api key 
+	      See website: https://developers.google.com/maps/documentation/javascript/get-api-key#step-1-get-an-api-key 
 
-		    chart.draw(data, options);
-		    document.getElementById('yearLabel').textContent = "1960";
-		}
+	      Click 'Get started' you have to enable billing, but it is free so long as you dont do more than like 150,000 requests this month
 
-		function updateSlider(val){
-			var year = val - 1960;
-			var countryArray = refugeeData[year];
-		    var data = google.visualization.arrayToDataTable(countryArray);
+	      You can set max requests, and not be billed no matter what, but this is done for security reasons, explained in 290, 
+	      basically so none of us can post this on reddit and accidentally give a teammate a surprise million views and a $50 charge
 
-		    var options = {};
+	      After you have your api key, create a file called key.js in the same folder as this html doc, add a single line to it. It will look like: 
+	      const APIkey = '(copy and paste your api key here)'
+	      Then, this will work on your home computer -->
+	    <script type="text/javascript" src="key.js"></script>
+	    <script type="text/javascript" src="Data/pop_data.js"></script> <!-- Object is called refugeeData -->
 
-		    var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
-		    document.getElementById('yearLabel').textContent = val;
-		    chart.draw(data, options);
-		}
+	    <!-- Want to work on the chart styles, color, etc.? Here are the docs;
+	    	https://developers.google.com/chart/interactive/docs/gallery/geochart#top_of_page -->
+	    <script type="text/javascript">
+			google.charts.load('current', {
+			    'packages':['geochart'],
+			    // Note: you will need to get a mapsApiKey for your project.
+			    // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+			    'mapsApiKey': APIkey
+			});
+			
+			google.charts.setOnLoadCallback(updateSlider);
 
-      	var slider = new Slider('#yearSlider', {});
-    </script>   
-</head>
-<body>
+			function updateSlider(val){
+				if (val == undefined){
+					year = 0;
+					document.getElementById('yearLabel').textContent = 1960;
+				}
+				else{
+					var year = val - 1960;
+					document.getElementById('yearLabel').textContent = val;
+				}
+				
+				var countryArray = refugeeData[year];
+			    var data = google.visualization.arrayToDataTable(countryArray);
 
+			    //We might want to go with displayMode: 'markers' because some of these numbers are so big they overshadow others.
+			    //Like syria has so many refugees fleeing that it is hard to see what is happening in Latin America
+			    //If we go with that style, then we should remove legend:none, max value caps it at 80k, so you can see these others.
+			    var options = {
+			    	colorAxis: {colors: ['#2cd619', '#f73909'], maxValue: 80000},
+			        backgroundColor: '#119ac4',
+			        datalessRegionColor: '#2cd619',
+			        defaultColor: '#2cd619',
+			        legend: 'none'
+			    };
 
-	<!-- Header	 -->
-	<div class="row">
-		<div class="col">
-			<h1>Refugee Population Statistics From 1960 - 2017</h1>
+			    var chart = new google.visualization.GeoChart(document.getElementById('map_div'));
+			    chart.draw(data, options);
+			}
+
+	      	var slider = new Slider('#yearSlider', {});
+	    </script>   
+	</head>
+
+	<body>
+
+		<!-- Header	 -->
+		<div class="row">
+			<div class="col">
+				<h3>Refugee Population Statistics From 1960 - 2017</h3>
+			</div>
 		</div>
-	</div>
 
-	<!-- Year Label	 -->
-	<div class="row">
-		<div class="col-lg-6 col-lg-offset-3 text-center"">
-			<h3 id=yearLabel></h3>
+		<!-- Year Label	 -->
+		<div class="row mt-5">
+			<div class="col-lg-6 col-lg-offset-3 text-center"">
+				<h1 id=yearLabel></h1>
+			</div>
 		</div>
-	</div>
 
-	<!-- Map Content -->
-	<div class="row mt-5">
-		<div class="col-lg-6 col-lg-offset-3 text-center">
-			    <div id="regions_div" style="width: 900px; height: 500px;"></div>
+		<!-- Map Content -->
+		<div class="row mt-5">
+			<div class="col-lg-6 col-lg-offset-3 text-center">
+				    <div id="map_div" style="height: 700px;"></div>
+			</div>
 		</div>
-	</div>
 
-	<!-- Year selector -->
-	<div class="row text-right mt-5">
-		<div class="col-lg-6 col-lg-offset-3">
-			<label>Year Slide</label>
-			<input id="yearSlider" type="text" data-provide="slider" data-slider-id='yearSlider' data-slider-min="1960" data-slider-max="2017" data-slider-step="1" data-slider-value="1960" onchange="updateSlider(this.value)">
+		<!-- Year selector -->
+		<div class="row text-right mt-5 pt-5">
+			<div class="col-lg-6 col-lg-offset-3">
+				<label>Year Slide</label>
+				<input id="yearSlider" type="text" data-provide="slider" data-slider-id='yearSlider' data-slider-min="1960" data-slider-max="2017" data-slider-step="1" data-slider-value="1960" onchange="updateSlider(this.value)">
+			</div>
 		</div>
-	</div>
-</body>
+	</body>
 </html>

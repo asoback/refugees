@@ -22,7 +22,7 @@ country_count = len(countries)
 
 f.write("const refugeeData = [")
 for column in df.columns[1:]:
-	f.write("[['Country', 'Refugee Population'],")
+	f.write("[['Country', 'Fleeing Population'],")
 	for i in range(country_count):
 		f.write('["' + countries[i] + '",' + str(df[column][i]) + "],")
 	f.write('],')
