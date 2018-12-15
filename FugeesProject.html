@@ -2,6 +2,7 @@
 <html>
 <head>
 	<!-- Including Bootstrap 3 -->
+	<!-- downgraded to use sliders. Internet told me to. https://stackoverflow.com/a/42486185 -->
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -52,6 +53,18 @@
 		    chart.draw(data, options);
 		}
 
+		function updateSlider(val){
+			var year = val - 1960;
+			var countryArray = refugeeData[year];
+		    var data = google.visualization.arrayToDataTable(countryArray);
+
+		    var options = {};
+
+		    var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+
+		    chart.draw(data, options);
+		}
+
       	var slider = new Slider('#yearSlider', {});
     </script>   
 </head>
@@ -84,7 +97,7 @@
 	<div class="row">
 		<div class="col"></div>	
 		<div class="col">
-			<input id="yearSlider" type="text" data-provide="slider" data-slider-id='yearSlider' data-slider-min="1960" data-slider-max="2017" data-slider-step="1" data-slider-value="1970"/>
+			<input id="yearSlider" type="text" data-provide="slider" data-slider-id='yearSlider' data-slider-min="1960" data-slider-max="2017" data-slider-step="1" data-slider-value="1970" onchange="updateSlider(this.value)">
 		</div>	
 		<div class="col"></div>	
 
