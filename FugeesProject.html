@@ -86,12 +86,12 @@
 				for (i =1; i < countryArray.length; i++){
 					if(countryArray[i][1] > 0){
 						var listItem = document.createElement('li');
-						listItem.innerHTML = countryArray[i][0] + ': ' + countryArray[i][1];
+						listItem.innerHTML = countryArray[i][0] + ': ' + numberWithCommas(countryArray[i][1]);
 						countryList.appendChild(listItem);
 						totalPop += countryArray[i][1];
 					}
 				}
-				document.getElementById('totalRefugees').textContent = "Global Refugee Population: " + totalPop + "+";
+				document.getElementById('totalRefugees').textContent = "Global Refugee Population: +" + numberWithCommas(totalPop);
 
 				//countryArray[0] has to be labels ['Country', 'Fleeing population']
 				//After that is country:pop pairs
@@ -132,6 +132,12 @@
 					drawMap(year+1);
 					document.getElementById('yearSlider').setAttribute('data-slider-value', year+1);
 				}
+			}
+
+			//Number formatting function using regex
+			//Citation: Elias Zamaria, https://stackoverflow.com/a/2901298
+			function numberWithCommas(x) {
+			    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 			}
 
 			// This just declares the slider for bootstrap, without it it just shows up as a text box
@@ -179,9 +185,9 @@
 					<p id="summary"></p>
 				</div>
 			</div>
-
+			<br>
 			<!-- Year selector -->
-			<div class="row mt-5 pt-5">
+			<div class="row mt-15 pt-5">
 				<div class="col text-center">
 					<input id="yearSlider" type="text" data-provide="slider" data-slider-id='yearSlider' data-slider-min="1960" data-slider-max="2017" data-slider-step="1" data-slider-value="1960" onchange="drawMap(this.value)">
 					
