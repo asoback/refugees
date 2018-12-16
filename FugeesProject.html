@@ -116,6 +116,8 @@
 			    var summaryDiv = document.getElementById('summary');
 			    summaryDiv.textContent = summaryArray[year];
 
+			    /*
+			    //Removed this section as we are possibly removing these buttons
 			    var backbttn = document.getElementById('backbttn');
 			    var fwdbttn = document.getElementById('fwdbttn');
 			    if(year == 0){
@@ -130,6 +132,7 @@
 			    else{
 			    	fwdbttn.style.visibility = 'visible';
 			    }
+			    */
 
 			}
 
@@ -147,6 +150,13 @@
 					drawMap(year+1);
 					document.getElementById('yearSlider').setAttribute('data-slider-value', year+1);
 				}
+			}
+
+			function toPresent(){
+				drawMap(2017);
+				var slider = document.getElementById('yearSlider');
+				slider.slider('setValue', 2017, true);
+				slider.slider('refresh');
 			}
 
 			//Number formatting function using regex
@@ -186,14 +196,8 @@
 						<ul id="countryList"></ul>
 					</div>
 				</div>
-				<div class="col-lg-1 col-md-1" style="width: 4%;">
-					<button id="backbttn" type="button" class="btn btn-warning btn-arrow-left" onclick="backOne()"><span class="glyphicon glyphicon-backward"></span></button>
-				</div>
 				<div class="col-lg-6 col-md-6 text-center">
 					    <div id="map_div"></div>   
-				</div>
-				<div class="col-lg-1 col-md-1" style="width: 4%;" >
-					<button id="fwdbttn" type="button" class="btn btn-warning btn-arrow-right" onclick="fwdOne()"><span class="glyphicon glyphicon-forward"></span></button>
 				</div>
 				<!-- This is where the summaries get filled into -->
 				<div class="col-lg-3 col-md-3">
@@ -202,11 +206,18 @@
 			</div>
 			<br>
 			<!-- Year selector -->
+			<!-- FWD and BACK buttons maybe to be removed. For now are invisible -->
 			<div class="row mt-15 pt-5">
+				<button id="backbttn" type="button" class="btn btn-warning btn-arrow-left" onclick="backOne()" style="visibility: hidden"><span class="glyphicon glyphicon-backward"></span></button>
+
+				<!--slider-->
 				<div class="col text-center">
 					<input id="yearSlider" type="text" data-provide="slider" data-slider-id='yearSlider' data-slider-min="1960" data-slider-max="2017" data-slider-step="1" data-slider-value="1960" onchange="drawMap(this.value)">
-					
+					<button id="presentBttn" type="button" class="btn btn-warning btn-arrow-right" onclick="toPresent()"><span class="glyphicon glyphicon-forward"></span></button>
 				</div>
+
+				<button id="fwdbttn" type="button" class="btn btn-warning btn-arrow-right" onclick="fwdOne()" style="visibility: hidden"><span class="glyphicon glyphicon-forward"></span></button>
+
 			</div>
 		</div>
 
