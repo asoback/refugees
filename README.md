@@ -1,8 +1,11 @@
 # Visualizing the scale of the global refugee crisis
 
 ## OSU Hackathon Winter 2018 Project
+
 Andrew Soback
+
 Tri Nguyen
+
 Jose Garay Jr
 
 Site demo available at asoback.github.io
