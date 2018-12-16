@@ -63,3 +63,9 @@ footer {
 {
   background-color: rgba(205, 214, 216, .6);
 }
+
+#references 
+{
+    text-align: center;
+    font-size: 10px;
+}
