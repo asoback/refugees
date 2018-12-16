@@ -116,9 +116,12 @@
 			    var chart = new google.visualization.GeoChart(document.getElementById('map_div'));
 			    chart.draw(data, options);
 
-			    //Add the summary, See last section in Map Content HTML section below
-			    var summaryDiv = document.getElementById('summary');
-			    summaryDiv.textContent = summaryArray[year];
+
+                var summaryDiv = document.getElementById('summary');
+                if (summaryArray[year] != "") {
+                    summaryDiv.textContent = summaryArray[year];
+                }
+		
 
 			}
 
