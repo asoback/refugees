@@ -115,7 +115,7 @@
 						string = "+ ";
 					}
 					else{ 
-						string = "- ";
+						string = "";
 					}
 					string += numberWithCommas(changePop) + " change since " + (year + 1959);
 					document.getElementById('subtitleLabel').textContent = string;
@@ -155,8 +155,8 @@
 			function toPresent(){
 				drawMap(2017);
 				var slider = document.getElementById('yearSlider');
-				slider.slider('setValue', 2017, true);
-				slider.slider('refresh');
+				slider.setAttribute("value", "2017");
+				
 			}
 
 			//Number formatting function using regex
@@ -164,10 +164,6 @@
 			function numberWithCommas(x) {
 			    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 			}
-
-			// This just declares the slider for bootstrap, without it it just shows up as a text box
-			// Currently gives error on console, yet works. Not sure why, maybe just because this script loads before the DOM element.
-	      	var slider = new Slider('#yearSlider', {});
 	    </script>   
 	</head>
 
@@ -230,7 +226,9 @@
 			<div class="row mt-15 pt-5">
 				<!--slider-->
 				<div class="col text-center">
-					<input id="yearSlider" type="text" data-provide="slider" data-slider-id='yearSlider' data-slider-min="1960" data-slider-max="2017" data-slider-step="1" data-slider-value="1960" onchange="drawMap(this.value)">
+					<div class="slidecontainer">
+					  	<input type="range" min="1960" max="2017" value="1960" class="slider" id="yearSlider" onchange="drawMap(this.value)">
+					</div>
 					<button id="presentBttn" type="button" class="btn btn-warning btn-arrow-right" onclick="toPresent()"><span class="glyphicon glyphicon-forward"></span></button>
 				</div>
 			</div>
