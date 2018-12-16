@@ -15,12 +15,22 @@ h1{
 	color: #cdd6d8;
 }
 
+h2{
+  text-align: center;
+  color: #cdd6d8;
+}
+
 h3{
 	text-align: center;
 	color: #cdd6d8;
 }
 
 h4{
+  text-align: center;
+  color: #cdd6d8;
+}
+
+h6{
   text-align: center;
   color: #cdd6d8;
 }

@@ -69,13 +69,13 @@
 			//If called with no val default to 1960
 			function drawMap(val){
 				var countryList = document.getElementById('countryList'); //Used to make ordered list in map row
-
+				var year;
 				//Set year array element spot, between 0 and 57 (Add 1960 to it to get actual year)
 				if (val == undefined){
 					year = 0;
 				}
 				else{
-					var year = val - 1960;
+					year = val - 1960;
 				}
 				
 				//Country array is the refugee popuation data for the current selected year
@@ -94,8 +94,36 @@
 					}
 				}
 
+
+
 				//Build title
-				document.getElementById('titleLabel').textContent = "Global Refugee Population in " + (year+1960) + ": +" +  numberWithCommas(totalPop);
+				document.getElementById('yearLabel').textContent = year+1960;
+				document.getElementById('titleLabel').textContent = "There Are More Than " +  numberWithCommas(totalPop) + " Refugees Worldwide";
+
+				//Subtitle
+				if (year > 0){
+					var pastPop = 0;
+					var prevCountryArr = refugeeData[year-1];
+					for (i =1; i < prevCountryArr.length; i++){
+						if(prevCountryArr[i][1] > 0){
+							pastPop += prevCountryArr[i][1];
+						}
+					}	
+					var changePop = totalPop - pastPop;
+					var string;
+					if(changePop > 0){
+						string = "+ ";
+					}
+					else{ 
+						string = "- ";
+					}
+					string += numberWithCommas(changePop) + " change since " + (year + 1959);
+					document.getElementById('subtitleLabel').textContent = string;
+				}
+				else{
+					document.getElementById('subtitleLabel').textContent = "";
+				}
+				
 
 				//countryArray[0] has to be labels ['Country', 'Fleeing population']
 				//After that is country:pop pairs, so countryArray[1] will look like ['Angola', '150000']
@@ -145,6 +173,13 @@
 
 	<body>
 		<div class="container-fluid">
+
+			<!-- year label -->
+			<div class="row mt-5">
+				<div class="col-lg-6 col-lg-offset-3 text-center"">
+					<h2 id=yearLabel></h2>
+				</div>
+			</div>
 			
 			<!-- Title Label	 -->
 			<div class="row mt-5">
@@ -153,10 +188,17 @@
 				</div>
 			</div>
 
+			<!-- subtitle Label	 -->
+			<div class="row mt-5">
+				<div class="col-lg-6 col-lg-offset-3 text-center"">
+					<h6 id=subtitleLabel></h6>
+				</div>
+			</div>
+
 			<!-- Map header	 -->
 			<div class="row">
 				<div class="col">
-					<h3>Countries of Origin</h3>
+					<h4>Countries of Origin</h4>
 				</div>
 			</div>
 
