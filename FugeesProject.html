@@ -113,9 +113,10 @@
 			    chart.draw(data, options);
 
 			    //Add the summary, See line 167
-			    var summaryDiv = document.getElementById('summary');
-			    summaryDiv.textContent = summaryArray[year];
-
+                var summaryDiv = document.getElementById('summary');
+                if (summaryArray[year] != "") {
+                    summaryDiv.textContent = summaryArray[year];
+                }
 			    var backbttn = document.getElementById('backbttn');
 			    var fwdbttn = document.getElementById('fwdbttn');
 			    if(year == 0){
