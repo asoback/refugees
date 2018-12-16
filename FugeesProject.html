@@ -80,6 +80,7 @@
 				}
 				
 				var countryArray = refugeeData[year];
+				var totalPop = 0;
 				countryList.innerHTML =''; // empty the list
 				var i;
 				for (i =1; i < countryArray.length; i++){
@@ -87,8 +88,10 @@
 						var listItem = document.createElement('li');
 						listItem.innerHTML = countryArray[i][0] + ': ' + countryArray[i][1];
 						countryList.appendChild(listItem);
+						totalPop += countryArray[i][1];
 					}
 				}
+				document.getElementById('totalRefugees').textContent = "Global Refugee Population: " + totalPop + "+";
 
 				//countryArray[0] has to be labels ['Country', 'Fleeing population']
 				//After that is country:pop pairs
@@ -157,7 +160,7 @@
 			<div class="row mt-5 vertical-align">
 				<!-- Left hand side list of countries and populations -->
 				<div class="col-lg-2 col-md-2">
-					<h4>Country of Origin: Fleeing Population</h4>
+					<h4 id="totalRefugees">Country of Origin: Fleeing Population</h4>
 					<div class="pre-scrollable">
 						<ul id="countryList"></ul>
 					</div>
@@ -185,5 +188,10 @@
 				</div>
 			</div>
 		</div>
+
+		<footer>
+				<p style="float: left">OSU Hackathon Winter 2018</p>
+				<p style="float: right">Data gathered from <a href="https://www.unhcr.org/figures-at-a-glance.html">UN Refugee Agency</a></p>
+		</footer>
 	</body>
 </html>
