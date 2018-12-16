@@ -116,6 +116,21 @@
 			    var summaryDiv = document.getElementById('summary');
 			    summaryDiv.textContent = summaryArray[year];
 
+			    var backbttn = document.getElementById('backbttn');
+			    var fwdbttn = document.getElementById('fwdbttn');
+			    if(year == 0){
+			    	backbttn.style.visibility = 'hidden';
+			    }
+			    else{
+			    	backbttn.style.visibility = 'visible';
+			    }
+			    if(year + 1960 == 2017){
+			    	fwdbttn.style.visibility = 'hidden';
+			    }
+			    else{
+			    	fwdbttn.style.visibility = 'visible';
+			    }
+
 			}
 
 			function backOne(){
@@ -172,13 +187,13 @@
 					</div>
 				</div>
 				<div class="col-lg-1 col-md-1" style="width: 4%;">
-					<button type="button" class="btn btn-warning btn-arrow-left" onclick="backOne()"><span class="glyphicon glyphicon-backward"></span></button>
+					<button id="backbttn" type="button" class="btn btn-warning btn-arrow-left" onclick="backOne()"><span class="glyphicon glyphicon-backward"></span></button>
 				</div>
 				<div class="col-lg-6 col-md-6 text-center">
 					    <div id="map_div"></div>   
 				</div>
 				<div class="col-lg-1 col-md-1" style="width: 4%;" >
-					<button type="button" class="btn btn-warning btn-arrow-right" onclick="fwdOne()"><span class="glyphicon glyphicon-forward"></span></button>
+					<button id="fwdbttn" type="button" class="btn btn-warning btn-arrow-right" onclick="fwdOne()"><span class="glyphicon glyphicon-forward"></span></button>
 				</div>
 				<!-- This is where the summaries get filled into -->
 				<div class="col-lg-3 col-md-3">
