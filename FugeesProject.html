@@ -17,7 +17,7 @@
 		
 		<!-- CSS for media queries -->
 		<link rel="stylesheet" type="text/css" href="style.css">
-		<title>Fugees Project</title>
+		<title>Scale of the Refugee Crisis</title>
 
 		<!-- Maps Section -->
 		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -70,16 +70,18 @@
 			function drawMap(val){
 				var countryList = document.getElementById('countryList'); //Used to make ordered list in map row
 
+				//Set year array element spot, between 0 and 57 (Add 1960 to it to get actual year)
 				if (val == undefined){
 					year = 0;
-					document.getElementById('yearLabel').textContent = 1960;
 				}
 				else{
 					var year = val - 1960;
-					document.getElementById('yearLabel').textContent = val;
 				}
 				
+				//Country array is the refugee popuation data for the current selected year
 				var countryArray = refugeeData[year];
+
+				//Get the total population by adding all of it together
 				var totalPop = 0;
 				countryList.innerHTML =''; // empty the list
 				var i;
@@ -91,10 +93,12 @@
 						totalPop += countryArray[i][1];
 					}
 				}
-				document.getElementById('totalRefugees').textContent = "Global Refugee Population: +" + numberWithCommas(totalPop);
+
+				//Build title
+				document.getElementById('titleLabel').textContent = "Global Refugee Population in " + (year+1960) + ": +" +  numberWithCommas(totalPop);
 
 				//countryArray[0] has to be labels ['Country', 'Fleeing population']
-				//After that is country:pop pairs
+				//After that is country:pop pairs, so countryArray[1] will look like ['Angola', '150000']
 			    var data = google.visualization.arrayToDataTable(countryArray);
 
 			    //We might want to go with displayMode: 'markers' because some of these numbers are so big they overshadow others.
@@ -112,42 +116,22 @@
 			    var chart = new google.visualization.GeoChart(document.getElementById('map_div'));
 			    chart.draw(data, options);
 
-			    //Add the summary, See line 167
+
                 var summaryDiv = document.getElementById('summary');
                 if (summaryArray[year] != "") {
                     summaryDiv.textContent = summaryArray[year];
                 }
-			    var backbttn = document.getElementById('backbttn');
-			    var fwdbttn = document.getElementById('fwdbttn');
-			    if(year == 0){
-			    	backbttn.style.visibility = 'hidden';
-			    }
-			    else{
-			    	backbttn.style.visibility = 'visible';
-			    }
-			    if(year + 1960 == 2017){
-			    	fwdbttn.style.visibility = 'hidden';
-			    }
-			    else{
-			    	fwdbttn.style.visibility = 'visible';
-			    }
+		
 
 			}
 
-			function backOne(){
-				year = Number(document.getElementById('yearLabel').textContent);
-				if(year > 1960){
-					drawMap(year-1);
-					document.getElementById('yearSlider').setAttribute('data-slider-value', year-1); //This not yet working for some reason
-				}
-			}
-
-			function fwdOne(){
-				year = Number(document.getElementById('yearLabel').textContent);
-				if(year < 2017){
-					drawMap(year+1);
-					document.getElementById('yearSlider').setAttribute('data-slider-value', year+1);
-				}
+			//Button next to slider calls this function on click
+			//Takes us to most recent time (2017)
+			function toPresent(){
+				drawMap(2017);
+				var slider = document.getElementById('yearSlider');
+				slider.slider('setValue', 2017, true);
+				slider.slider('refresh');
 			}
 
 			//Number formatting function using regex
@@ -164,53 +148,54 @@
 
 	<body>
 		<div class="container-fluid">
-			<!-- Header	 -->
-			<div class="row">
-				<div class="col">
-					<h3>Refugee Population Statistics From 1960 - 2017</h3>
+			
+			<!-- Title Label	 -->
+			<div class="row mt-5">
+				<div class="col-lg-6 col-lg-offset-3 text-center"">
+					<h1 id=titleLabel></h1>
 				</div>
 			</div>
 
-			<!-- Year Label	 -->
-			<div class="row mt-5">
-				<div class="col-lg-6 col-lg-offset-3 text-center"">
-					<h1 id=yearLabel></h1>
+			<!-- Map header	 -->
+			<div class="row">
+				<div class="col">
+					<h3>Countries of Origin</h3>
 				</div>
 			</div>
+
+			<br>
 
 			<!-- Map Content -->
 			<div class="row mt-5 vertical-align">
 				<!-- Left hand side list of countries and populations -->
 				<div class="col-lg-2 col-md-2">
-					<h4 id="totalRefugees">Country of Origin: Fleeing Population</h4>
+					<h4 id="totalRefugees">Origin: Fleeing Population</h4>
 					<div class="pre-scrollable">
 						<ul id="countryList"></ul>
 					</div>
 				</div>
-				<div class="col-lg-1 col-md-1" style="width: 4%;">
-					<button id="backbttn" type="button" class="btn btn-warning btn-arrow-left" onclick="backOne()"><span class="glyphicon glyphicon-backward"></span></button>
-				</div>
 				<div class="col-lg-6 col-md-6 text-center">
 					    <div id="map_div"></div>   
-				</div>
-				<div class="col-lg-1 col-md-1" style="width: 4%;" >
-					<button id="fwdbttn" type="button" class="btn btn-warning btn-arrow-right" onclick="fwdOne()"><span class="glyphicon glyphicon-forward"></span></button>
 				</div>
 				<!-- This is where the summaries get filled into -->
 				<div class="col-lg-3 col-md-3">
 					<p id="summary"></p>
 				</div>
 			</div>
+
 			<br>
+
 			<!-- Year selector -->
 			<div class="row mt-15 pt-5">
+				<!--slider-->
 				<div class="col text-center">
 					<input id="yearSlider" type="text" data-provide="slider" data-slider-id='yearSlider' data-slider-min="1960" data-slider-max="2017" data-slider-step="1" data-slider-value="1960" onchange="drawMap(this.value)">
-					
+					<button id="presentBttn" type="button" class="btn btn-warning btn-arrow-right" onclick="toPresent()"><span class="glyphicon glyphicon-forward"></span></button>
 				</div>
 			</div>
 		</div>
 
+		<!-- Footer section, first p is left, second is on right. Position fixed at bottom, see styles.css -->
 		<footer>
 				<p style="float: left">OSU Hackathon Winter 2018</p>
 				<p style="float: right">Data gathered from <a href="https://www.unhcr.org/figures-at-a-glance.html">UN Refugee Agency</a></p>
