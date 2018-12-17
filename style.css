@@ -70,7 +70,7 @@ footer {
 
 
 /* help from https://www.w3schools.com/howto/howto_js_rangeslider.asp */
-.slider {
+/*.slider {
   -webkit-appearance: none;
   width: 90%;
   height: 5px;
@@ -99,7 +99,7 @@ footer {
   background: #4CAF50;
   cursor: pointer;
 }
-
+*/
 .global_conflicts{
   background: grey;
   border: 2px solid #000000;
@@ -113,7 +113,7 @@ footer {
   background:grey;
 }
 
-.slidecontainer{
+/*.slidecontainer{
   padding-top: 15px;
   padding-bottom: 15px;
-}
+}*/

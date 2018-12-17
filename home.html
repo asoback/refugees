@@ -154,8 +154,7 @@
 			//Takes us to most recent time (2017)
 			function toPresent(){
 				drawMap(2017);
-				var slider = document.getElementById('yearSlider');
-				slider.value = 2017;
+				$("#year").slider('setValue', 2017);
 				
 			}
 
@@ -224,19 +223,11 @@
 
 			<!-- Year selector -->
 			<div class="row mt-15 pt-5">
-				<div class="col-lg-4 col-md-4"></div>
-
 				<!--slider-->
-				<div class="col-lg-3 col-md-3 text-center">
-					<div class="slidecontainer">
-					  	<input type="range" min="1960" max="2017" value="1960" class="slider" id="yearSlider" onchange="drawMap(this.value)">
-					</div>
-				</div>
-				<div class="col-lg-1 col-md-1">
+				<div class="col text-center">
+					<input id="year" type="text" data-provide="slider" data-slider-id='yearSlider' data-slider-min="1960" data-slider-max="2017" data-slider-step="1" data-slider-value="1960" onchange="drawMap(this.value)">
 					<button id="presentBttn" type="button" class="btn btn-warning btn-arrow-right" onclick="toPresent()"><span class="glyphicon glyphicon-forward"></span></button>
 				</div>
-
-				<div class="col-lg-2 col-md-2"></div>
 			</div>
 		</div>
 
