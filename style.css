@@ -41,7 +41,7 @@ p{
 }
 
 footer {
-  position: relative;
+  position: fixed;
   background-color: #05005b;
   right: 0; bottom: 0; left: 0;
 }
