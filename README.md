@@ -8,7 +8,7 @@ Tri Nguyen
 
 Jose Garay Jr
 
-Site demo available at asoback.github.io
+Site demo available at https://refugeeproject.herokuapp.com/
 
 ## Inspiration
 
@@ -42,6 +42,3 @@ that many readers on Reddit and other sites could spend 3 minutes or less lookin
 ## Built with
 Python, JS, HTML, CSS, Bootstrap
 
-
-
-**Submit at https://osuwinter18.devpost.com/**
