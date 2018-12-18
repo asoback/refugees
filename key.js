@@ -1,1 +1,1 @@
-const APIkey = 'AIzaSyCvhOdi7An5P31UE-5f9H0RdNQkWXZxvug'
+const APIkey = 'xxxxxxxxxxxxxxxxxxxxxxxxxx' //See home.html for instructions on how to get your google geocoding api key
