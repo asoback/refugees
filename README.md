@@ -39,6 +39,3 @@ We were able to take over 100k lines of data in a CSV file and transform it into
 Ideally, we want to try to address some myths and misconceptions about refugees and other migrants, and turn each into something small, 
 that many readers on Reddit and other sites could spend 3 minutes or less looking at and have some views changed or worldview expanded.
 
-## Built with
-Python, JS, HTML, CSS, Bootstrap
-
